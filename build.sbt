@@ -2,19 +2,17 @@ name := """play-chatroom-java"""
 
 version := "1.0-SNAPSHOT"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.1"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
+libraryDependencies += guice
 libraryDependencies += "org.webjars" % "flot" % "0.8.3"
 libraryDependencies += "org.webjars" % "bootstrap" % "3.3.6"
 
-lazy val akkaVersion = "2.4.11"
-libraryDependencies += "com.typesafe.akka" %% "akka-http-core" % akkaVersion
-libraryDependencies += "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion
-libraryDependencies += "com.typesafe.akka" %% "akka-slf4j" % akkaVersion
+libraryDependencies += ws % Test
+libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test
+libraryDependencies += "org.awaitility" % "awaitility" % "2.0.0"
 
-libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test
-libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test
-libraryDependencies += "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test
-
+// Needed to make JUnit report the tests being run
+testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
